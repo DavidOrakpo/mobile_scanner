@@ -87,7 +87,7 @@ class MobileScanner extends StatefulWidget {
 }
 
 class _MobileScannerState extends State<MobileScanner>
-    with WidgetsBindingObserver {
+{
   /// The subscription that listens to barcode detection.
   StreamSubscription<BarcodeCapture>? _barcodesSubscription;
 
@@ -96,7 +96,7 @@ class _MobileScannerState extends State<MobileScanner>
 
   /// Whether the controller should resume
   /// when the application comes back to the foreground.
-  bool _resumeFromBackground = false;
+  // bool _resumeFromBackground = false;
 
   MobileScannerException? _startException;
 
@@ -148,32 +148,32 @@ class _MobileScannerState extends State<MobileScanner>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    // WidgetsBinding.instance.addObserver(this);
     _controller = widget.controller ?? MobileScannerController();
     _startScanner();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // App state changed before the controller was initialized.
-    if (_controller.isStarting) {
-      return;
-    }
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   // App state changed before the controller was initialized.
+  //   if (_controller.isStarting) {
+  //     return;
+  //   }
 
-    switch (state) {
-      case AppLifecycleState.resumed:
-        if (_resumeFromBackground) {
-          _startScanner();
-        }
-        break;
-      case AppLifecycleState.inactive:
-        _resumeFromBackground = true;
-        _controller.stop();
-        break;
-      default:
-        break;
-    }
-  }
+  //   switch (state) {
+  //     case AppLifecycleState.resumed:
+  //       if (_resumeFromBackground) {
+  //         _startScanner();
+  //       }
+  //       break;
+  //     case AppLifecycleState.inactive:
+  //       _resumeFromBackground = true;
+  //       _controller.stop();
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
 
   /// the [scanWindow] rect will be relative and scaled to the [widgetSize] not the texture. so it is possible,
   /// depending on the [fit], for the [scanWindow] to partially or not at all overlap the [textureSize]
@@ -307,7 +307,7 @@ class _MobileScannerState extends State<MobileScanner>
   @override
   void dispose() {
     _controller.updateScanWindow(null);
-    WidgetsBinding.instance.removeObserver(this);
+    // WidgetsBinding.instance.removeObserver(this);
     _barcodesSubscription?.cancel();
     _barcodesSubscription = null;
     _controller.dispose();
